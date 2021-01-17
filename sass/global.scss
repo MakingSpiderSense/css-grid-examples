@@ -1,0 +1,284 @@
+// ====================================
+// ============ CSS GRID ==============
+// ====================================
+
+
+// Grid Global
+section {
+    margin-bottom: 50px;
+}
+.mss-grid {
+    background-color: #734ff3;
+    padding: 10px;
+    .grid-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+    }
+}
+
+
+// Example 1 - Column Spanning
+.ex1 {
+    .mss-grid {
+        // With "grid-template-columns" you specify the width of each column. Width can be all the usual units (px, rem, %, etc.) You also specify the number of columns. For example, below "auto" is listed 4 times, so that means there will be 4 columns.
+        // Note: If you have a large number of columns and want a pattern repeated, this is possible (https://developer.mozilla.org/en-US/docs/Web/CSS/repeat)
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-template-rows: auto 200px auto;
+        grid-gap: 10px;
+        .grid-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .item1 {
+            // The numbers below use what's known as "Grid Lines". Grid lines are all the vertical and horizontal lines in the grid, including the outer lines. So the first, outer line is "1". Then the next column or row separator would be "2".
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        .item5 {
+            grid-column-start: 2;
+            grid-column-end: 4;
+            // Or you can use the shorthand
+            grid-column: 2 / 4;
+        }
+        .item7 {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            // Or you can specify the number of columns to span (works as shorcode too)
+            grid-column-end: span 3;
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            grid-template-columns: auto;
+            grid-template-rows: auto;
+            .item1, .item5, .item7 {
+                grid-column-start: initial;
+                grid-column-end: initial;
+            }
+        }
+    }
+}
+
+
+// Example 2 - Row Spanning
+.ex2 {
+    .mss-grid {
+        // Justify-content is focused on horizontal alignment. It has all the same possible values as if you were to use it in flex box (flex-end, center, space-around, etc.).
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+        .item1 {
+            grid-row: 1 / span 2;
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            grid-template-columns: auto;
+        }
+    }
+}
+
+
+// Example 3 - Row/Column Spanning Mix
+.ex3 {
+    .mss-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-gap: 10px;
+        .grid-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .item1 {
+            grid-column: 1 / 4;
+            grid-row: 1 / 2;
+        }
+        .item2 {
+            grid-column: 4 / 5;
+            grid-row: 1 / 3;
+        }
+        .item3 {
+            grid-column: 1 / 2;
+            grid-row: 2 / 4;
+        }
+        .item4 {
+            grid-column: 2 / 4;
+            grid-row: 2 / 3;
+        }
+        .item5 {
+            grid-column: 2 / 5;
+            grid-row: 3 / 4;
+            // You can think of column and rows in terms of the x-axis and y-axis respectively
+            // If we wrote this out as coordinates with the upper-left corner as (1, 1) and StartPoint(x, y) and EndPoint(x, y)
+            // StartPoint(2, 3) and EndPoint(5, 4)
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            grid-template-columns: auto;
+            .item1, .item2, .item3, .item4, .item5 {
+                grid-column: initial;
+                grid-row: initial;
+            }
+        }
+    }
+}
+
+
+// Example 4 - Justify Content
+.ex4 {
+    .mss-grid {
+        // Justify-content is focused on horizontal alignment. It has all the same possible values as if you were to use it in flex box (flex-end, center, space-around, etc.).
+        display: grid;
+        justify-content: end;
+        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            justify-content: initial;
+            grid-template-columns: auto;
+        }
+    }
+}
+
+
+// Example 5 - Align Content
+.ex5 {
+    .mss-grid {
+        // Align-content works like "justify-content", but for vertical alignment.
+        display: grid;
+        min-height: 200px;
+        align-content: end;
+        grid-template-columns: auto auto auto;
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            align-content: initial;
+            grid-template-columns: auto;
+        }
+    }
+}
+
+
+// Example 6 - Grid Area and Order
+.ex6 {
+    .mss-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+        .item8 {
+            // Grid-area is a shorthand property for the grid-row-start, grid-column-start, grid-row-end and the grid-column-end
+            grid-area: 1 / 2 / 5 / 6;
+            // You can use "span" as well to do the same thing
+            grid-area: 1 / 2 / span 4 / span 4;
+        }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            grid-template-columns: auto;
+            .item8 {
+                grid-area: initial;
+                min-height: 150px;
+                // Order works like flex-box where all items are set to "0" by default. So you can set an item to "-1" to appear at the top and "1" to appear at the bottom
+                order: -1;
+            }
+        }
+    }
+}
+
+
+// Example 7 - Naming Grid Items
+.ex7 {
+    .mss-grid {
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu main main main right right'
+            'menu footer footer footer footer footer';
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+        .header { grid-area: header; }
+        .menu { grid-area: menu; }
+        .main { grid-area: main; }
+        .right-col { grid-area: right; }
+        .footer { grid-area: footer; }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            grid-template-areas:
+                'header'
+                'menu'
+                'main'
+                'right'
+                'footer';
+            // Can also be written like this and each area will still display as a row:
+            grid-template-areas: 'header' 'menu' 'main' 'right' 'footer';
+        }
+    }
+}
+
+
+// Example 8 - Naming Grid Items - Using Dots
+.ex8 {
+    .mss-grid {
+        display: grid;
+        grid-template-areas:
+            'area-A area-A . . .'
+            'area-A area-A . area-B area-B';
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+        .item1 { grid-area: area-A; }
+        .item6 { grid-area: area-B; }
+    }
+    @media (max-width: 1000px) {
+        .mss-grid {
+            // You can easily re-order the boxes
+            grid-template-areas:
+                'area-A'
+                'area-B'
+                '.' '.' '.' '.';
+        }
+    }
+}
+
+
+// Example 9 - Max-width
+.ex9 {
+    .mss-grid {
+        display: grid;
+        // You can set a min or max width of a column with minmax(). The first parameter is the min-width, the second is max-width. You can default to "auto" if you don't want to set an upper or lower bound.
+        // The right column is set to a max width of 250px
+        grid-template-columns: auto auto minmax(auto, 250px);
+        grid-gap: 10px;
+        .grid-item {
+            padding: 20px;
+        }
+    }
+    @media (max-width: 600px) {
+        .mss-grid {
+            grid-template-columns: auto;
+        }
+    }
+}

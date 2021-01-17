@@ -1,0 +1,21 @@
+# Images
+*.ai
+*.psd
+
+# Video
+*.mp4
+*.avi
+*.webm
+*.mkv
+*.flv
+*.ogv
+*.ogg
+*.wmv
+*.mpg
+*.mpeg
+
+# Folders
+**/.sass-cache
+
+# Files
+style.css.map
