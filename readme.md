@@ -1,4 +1,4 @@
-# Grid Examples
+# CSS Grid Examples
 
 This is a simple example guide that can be used as a cheat sheet to jump-start your grid layouts. It contains the most common layouts you might want to use with CSS Grid.
 
